@@ -1,0 +1,142 @@
+<style type="text/css">
+	h3.vote-cta__header {
+		text-align: center;
+		font-size: 3em;
+	}
+
+	.vote-cta__subhead {
+		vertical-align: middle;
+		margin: 2em auto;
+		text-align: center;
+	}
+
+	.vote-cta__clock {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.clock {
+		vertical-align: middle;
+	}
+
+	.clock__time {
+		display: inline-block;
+		margin-right: 1em;
+		vertical-align: middle;
+		text-align: left;
+	}
+
+	.clock__time small {
+		display: block;
+		font-family: 'AvenirNextLTPProBold', sans-serif !important;
+  	font-size: 14px;
+  	color: #666666;
+  	margin-bottom:0;
+	}
+
+	.clock__time span {
+		display: block;
+		font-family: 'AvenirNextLTPProBold', sans-serif !important;
+  	font-size: 22px;
+  	color: #333333;
+	}
+
+	.vote-cta__turbovote {
+		clear: both;
+		text-align: center;
+	}
+
+	.vote-cta__image {
+		display: inline-block;
+		vertical-align: middle;
+		width: 200px;
+		height: 200px;
+		margin-right: 2em;
+	}
+
+	.vote-cta__image img {
+		width: 100%;
+		height: auto;
+	}
+</style>
+
+<section class="vote-cta">
+	<h3 class="vote-cta__header pane-title open">
+		September 26 is National Voter Registration Day! 
+	</h3>
+	
+	<div class="vote-cta__subhead">	
+		<div class="vote-cta__image">
+			<img src="http://i.imgur.com/adLaqOh.png">
+		</div>
+		
+		<div id="clockdiv" class="vote-cta__clock">
+    	<div class="clock">
+	    	<div class="clock__time">
+	    		<small>Days:</small><span class="days"></span>
+	    	</div>
+	    	
+	    	<div class="clock__time">
+	    		<small>Hours:</small><span class="hours"></span>
+	    	</div>
+	    	
+	    	<div class="clock__time">
+	    		<small>Minutes:</small><span class="minutes"></span>
+	    	</div>
+	    	
+	    	<div class="clock__time">
+	    		<small>Seconds:</small><span class="seconds"></span>
+	    	</div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="vote-cta__turbovote">
+		<iframe frameborder="0" height="700px" scrolling="no" src="https://oyunited.turbovote.org" width="700px"></iframe>
+		<p>Powered by TurboVote: <a href="https://oyunited.turbovote.org">register to vote, request absentee ballots, and get election reminders</a></p>
+	</div>
+</section>
+
+<script type="text/javascript">
+	var endTime = '2017-9-26';
+	initializeClock('clockdiv', endTime);
+
+
+	function getTimeRemaining(){
+		var t = Date.parse(endTime) - Date.parse(new Date());
+		var seconds = Math.floor((t / 1000) % 60);
+		var minutes = Math.floor((t/ 1000 / 60) % 60);
+		var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+		var days = Math.floor(t / (1000 * 60 * 60 * 24));
+		return {
+			'total': t,
+			'days': days,
+			'hours': hours,
+			'minutes': minutes,
+			'seconds': seconds
+		}
+	}
+
+		function initializeClock(id, endtime){
+  		var clock = document.getElementById(id);
+  		var daysSpan = clock.querySelector('.days');
+			var hoursSpan = clock.querySelector('.hours');
+			var minutesSpan = clock.querySelector('.minutes');
+			var secondsSpan = clock.querySelector('.seconds');
+
+  		function updateClock(){
+  			var t = getTimeRemaining(endtime);
+  			daysSpan.innerHTML = t.days;
+    		hoursSpan.innerHTML = ('0' + t.hours).slice(-2);;
+    		minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);;
+    		secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);;
+  			if(t.total<=0){
+    			clearInterval(timeinterval);
+  			}
+			}
+			updateClock(); // run function once at first to avoid delay
+			var timeinterval = setInterval(updateClock,1000);
+		}
+</script>
+
+
